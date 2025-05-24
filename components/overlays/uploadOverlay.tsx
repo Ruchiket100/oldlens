@@ -11,9 +11,14 @@ const UploadOverlay = () => {
 	const router = useRouter();
 
 	const onImageUpload = (file: File) => {
-		setUploadedImage(file);
-		router.push("/edit");
-		setOverlay(null);
+		const reader = new FileReader();
+		reader.onload = (e) => {
+			if (e.target?.result) {
+				setUploadedImage(file);
+				router.push("/edit");
+				setOverlay(null);
+			}
+		};
 	};
 
 	const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {

@@ -1,26 +1,104 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+@theme {
+	/* breakpoints */
+	--breakpoint-xs: 370px;
+
+	/* neutral grays (unchanged—good for UI chrome) */
+	--color-gray-50: #fafafa;
+	--color-gray-100: #f5f5f5;
+	--color-gray-200: #eeeeee;
+	--color-gray-300: #e0e0e0;
+	--color-gray-400: #bdbdbd;
+	--color-gray-500: #9d9d9d;
+	--color-gray-600: #716f6f;
+	--color-gray-700: #5c5c5c;
+	--color-gray-800: #373737;
+	--color-gray-900: #222222;
+	--color-gray-950: #1a1a1a;
+
+	/* Oldlence accent scale (Ivory → Sepia → Leather → Charcoal) */
+	--color-accent-50: #f3eee4;
+	/* Aged Ivory               */
+	--color-accent-100: #eadfcc;
+	--color-accent-200: #e0cfb5;
+	--color-accent-300: #d4bc9c;
+	/* Warm Sepia (light)        */
+	--color-accent-400: #c4a67f;
+	--color-accent-500: #b28e63;
+	/* Warm Sepia (core)         */
+	--color-accent-600: #94704d;
+	--color-accent-700: #7a5843;
+	/* Leather Brown             */
+	--color-accent-800: #513c2c;
+	--color-accent-900: #2e2b29;
+	/* Charcoal Film (dark)      */
+
+	/* Brand roles */
+	--color-primary: var(--color-accent-700);
+	/* Leather Brown */
+	--color-primaryOpaque: color-mix(
+		in srgb,
+		var(--color-primary) 70%,
+		transparent
+	);
+	--color-primaryDarkOpaque: color-mix(
+		in srgb,
+		var(--color-accent-900) 70%,
+		transparent
+	);
+
+	--color-secondary: #a58e52;
+	/* Oxidized Brass */
+	--color-secondaryActive: color-mix(
+		in srgb,
+		var(--color-secondary) 85%,
+		black
+	);
+	--color-secondaryOpaque: color-mix(
+		in srgb,
+		var(--color-secondary) 60%,
+		transparent
+	);
+
+	--color-primaryFont: var(--color-accent-900);
+	/* Charcoal */
+	--color-primaryLightfont: var(--color-accent-50);
+	/* Ivory */
+
+	--color-lightOpaque: color-mix(in srgb, white 70%, transparent);
+	--color-opaque: color-mix(
+		in srgb,
+		var(--color-accent-500) 70%,
+		transparent
+	);
+	--color-opaqueActive: color-mix(
+		in srgb,
+		var(--color-accent-700) 80%,
+		transparent
+	);
+
+	/* Font families */
+	--font-sans: "Manrope", system-ui, sans-serif;
+	--font-serif-regular: advercase, serif;
+	--font-serif: advercasebold, serif;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+@font-face {
+	font-family: advercasebold;
+	src: url("../utils/fonts/advercase-bold.otf");
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+@font-face {
+	font-family: advercase;
+	src: url("../utils/fonts/advercase-regular.otf");
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+	font-family: "manrope", sans-serif;
+	color: "var(--color-primaryFont)";
+}
+
+button {
+	cursor: pointer;
 }

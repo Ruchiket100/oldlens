@@ -19,6 +19,7 @@ const UploadOverlay = () => {
 				setOverlay(null);
 			}
 		};
+		reader.readAsDataURL(file);
 	};
 
 	const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {

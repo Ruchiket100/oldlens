@@ -48,7 +48,15 @@ export default function Home() {
 
 			<Header
 				rightButton={
-					<button className="bg-accent-200 hover:bg-accent-300 transition-all group rounded-lg font-serif-regular text-primaryFont text-md flex items-center gap-2 px-4 py-2 border border-primaryFont">
+					<button
+						onClick={() => {
+							setOverlay({
+								content: <UploadOverlay />,
+								onHide: () => setOverlay(null),
+							});
+						}}
+						className="bg-accent-200 hover:bg-accent-300 transition-all group rounded-lg font-serif-regular text-primaryFont text-md flex items-center gap-2 px-4 py-2 border border-primaryFont"
+					>
 						<Sparkles className="h-5 w-5 group-hover:rotate-90 transition-all" />
 						<span>Try for free</span>
 					</button>

@@ -1,4 +1,5 @@
 "use client";
+import AdBanner from "@/components/adBanner";
 import Header from "@/components/Header";
 import UploadOverlay from "@/components/overlays/uploadOverlay";
 import PhotoEditor from "@/components/photoEditor";
@@ -53,6 +54,11 @@ export default function Home() {
 						<span>Try for free</span>
 					</button>
 				}
+			/>
+			<AdBanner
+				dataAdFormat="auto"
+				dataFullWidthResponsive={true}
+				dataAdSlot="4602885524" // Replace with your actual ad slot ID
 			/>
 			<main className="flex h-full py-10 px-4">
 				<div className="mx-auto">

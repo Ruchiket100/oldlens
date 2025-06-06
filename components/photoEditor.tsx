@@ -5,7 +5,6 @@ import {
 	Loader2,
 	Type,
 	ChevronDown,
-	ChevronLeft,
 	Crown,
 } from "lucide-react";
 import { toast } from "sonner";
@@ -40,6 +39,7 @@ const PhotoEditor: React.FC<PhotoEditorProps> = ({ imageFile, onReset }) => {
 	const [imageUrl, setImageUrl] = useState<string>("");
 	const [showCaptionInput, setShowCaptionInput] = useState(false);
 	const [caption, setCaption] = useState("");
+	const [captionColor, setCaptionColor] = useState<string>("#FEF7CD");
 
 	const imageRef = useRef<HTMLImageElement>(null);
 	const inputCanvasRef = useRef<HTMLCanvasElement>(null);
@@ -63,17 +63,17 @@ const PhotoEditor: React.FC<PhotoEditorProps> = ({ imageFile, onReset }) => {
 					let width = img.width;
 					let height = img.height;
 
-					if (width > maxWidth) {
-						const ratio = maxWidth / width;
-						width = maxWidth;
-						height = height * ratio;
-					}
+					// if (width > maxWidth) {
+					// 	const ratio = maxWidth / width;
+					// 	width = maxWidth;
+					// 	height = height * ratio;
+					// }
 
-					if (height > maxHeight) {
-						const ratio = maxHeight / height;
-						height = height * ratio;
-						width = width * ratio;
-					}
+					// if (height > maxHeight) {
+					// 	const ratio = maxHeight / height;
+					// 	height = height * ratio;
+					// 	width = width * ratio;
+					// }
 
 					inputCanvasRef.current.width = width;
 					inputCanvasRef.current.height = height;
@@ -139,13 +139,13 @@ const PhotoEditor: React.FC<PhotoEditorProps> = ({ imageFile, onReset }) => {
 					const x = canvas.width / 2;
 					const y = canvas.height - fontSize - padding;
 
-					// Draw yellow text
-					ctx.fillStyle = "#FEF7CD";
+					// Draw caption text
+					ctx.fillStyle = captionColor;
 					ctx.fillText(caption, x, y);
 				}
 			}
 		}
-	}, [settings, isProcessing, caption]);
+	}, [settings, isProcessing, caption, captionColor]);
 
 	const handleFilterSelect = (filter: FilterType) => {
 		setSelectedFilter(filter);
@@ -346,7 +346,7 @@ const PhotoEditor: React.FC<PhotoEditorProps> = ({ imageFile, onReset }) => {
 					</div>
 
 					{/* Caption Section */}
-					<div className="m-6 mb-0">
+					<div className="m-6 mb-4">
 						<Button
 							variant="hollow"
 							onClick={handleToggleCaptionInput}
@@ -365,27 +365,46 @@ const PhotoEditor: React.FC<PhotoEditorProps> = ({ imageFile, onReset }) => {
 						</Button>
 
 						{showCaptionInput && (
-							<div className="space-y-2">
-								<label className="text-sm font-medium text-vintage-darkBrown">
-									Enter caption text:
-								</label>
-								<Textarea
-									value={caption}
-									onChange={handleCaptionChange}
-									placeholder="Type your caption here..."
-									className="h-20 text-sm"
-								/>
-								<p className="text-xs text-vintage-faded italic">
-									Caption will appear centered at the bottom
-									of the image
-								</p>
-							</div>
+							<>
+								<div className="space-y-2">
+									<label className="text-sm font-medium text-vintage-darkBrown">
+										Enter caption text:
+									</label>
+									<Textarea
+										value={caption}
+										onChange={handleCaptionChange}
+										placeholder="Type your caption here..."
+										className="h-20 text-sm"
+									/>
+									<p className="text-xs text-vintage-faded italic">
+										Caption will appear centered at the
+										bottom of the image
+									</p>
+								</div>
+								<div className="flex gap-2 py-2">
+									{["#FFFFFF", "#000000"].map((color) => (
+										<div
+											key={color}
+											className={`w-8 h-8 rounded-full border border-accent-200 cursor-pointer ${
+												captionColor === color
+													? "ring-2 ring-accent-200"
+													: ""
+											}`}
+											style={{ backgroundColor: color }}
+											onClick={(e) => {
+												e.stopPropagation();
+												setCaptionColor(color);
+											}}
+										></div>
+									))}
+								</div>
+							</>
 						)}
 					</div>
 				</div>
 
 				{/* Right panel - Image preview */}
-				<div className="md:col-span-2 z-[99999] mx-auto">
+				<div className="md:col-span-2 z-[999] mx-auto">
 					<div className="editor-container rounded-lg relative overflow-hidden ">
 						{isProcessing && (
 							<div className="absolute inset-0 flex items-center justify-center bg-black/50 z-10">
@@ -401,7 +420,7 @@ const PhotoEditor: React.FC<PhotoEditorProps> = ({ imageFile, onReset }) => {
 							className="w-full h-auto max-h-[60vh] object-contain"
 						/>
 					</div>
-					<div className="mt-6 space-y-3">
+					<div className="mt-6 space-y-3 mb-4">
 						<Button
 							onClick={handleDownload}
 							className="w-full flex items-center justify-center gap-2 "
